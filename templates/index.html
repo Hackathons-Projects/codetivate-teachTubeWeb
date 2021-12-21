@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untitled</title>
+    <title>TeachTube</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
@@ -17,29 +17,17 @@
   <div>
     <div class="header-dark">
         <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
-            <div class="container"><a class="navbar-brand" href="#">teachTube</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse"
-                    id="navcol-1">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">Link</a></li>
-                        <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Dropdown </a>
-                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
-                        </li>
-                    </ul>
-                    <form class="form-inline mr-auto" target="_self">
-                        <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field" type="search" name="search" id="search-field"></div>
-                    </form><span class="navbar-text"><a href="#" class="login">Log In</a></span><a class="btn btn-light action-button" role="button" href="#">Sign Up</a></div>
-            </div>
+          <a href="#" class="pull-left"><img src="/static/logo.png" width="100" height="100"></a> 
+            <p>TeachTube</p>
         </nav>
         
         <div class="container hero">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <h1 class="text-center">Streaming Video Recorder</h1>
                     <div id="recorder">
-                      <button class="btn btn-light action-button" role="button" id="record">Record</button>
-                      <button class="btn btn-light action-button" role="button"id="stop">Stop</button>
-                      <button id="download" onclick = "openForm()">download</button>
+                      <button class="btn btn-dark action-button" role="button" id="record">Record</button>
+                      <button class="btn btn-dark action-button" role="button"id="stop">Stop</button>
+                      <button class="btn btn-dark action-button" id="upload" onclick = "openForm">Upload</button>
                       <script type="text/javascript" src="{{ url_for('static', filename='recorder.js') }}"></script> 
                       <img id="video" src="{{ url_for('video_viewer') }}">     
                       <!-- <form  id="form1" method="post" action="" target = "_parent" > -->
@@ -75,9 +63,17 @@
                 
             </div>
         </div>
+        
     </div>
+    <footer class="page-footer font-small footerr">
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3 text-white">Designed and Developed for Codetivate
+      </div>
+      <!-- Copyright -->
+    
+    </footer>
+    
 </div>
-  
-  
 </body>
 </html>
