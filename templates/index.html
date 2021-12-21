@@ -1,16 +1,83 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Streaming Video Recorder</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="static/style.css">
 </head>
+
+<!-- <head>
+  <title>Streaming Video Recorder</title>
+</head> -->
 <body>
-  <h1>Streaming Video Recorder</h1>
-  <div id="recorder">
-    <button id="record">Record</button>
-    <button id="stop">Stop</button>
-    <a id="download"></a>
-    <script type="text/javascript" src="{{ url_for('static', filename='recorder.js') }}"></script>      
-  </div>
-  <img id="video" src="{{ url_for('video_viewer') }}">
+  <div>
+    <div class="header-dark">
+        <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+            <div class="container"><a class="navbar-brand" href="#">teachTube</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse"
+                    id="navcol-1">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">Link</a></li>
+                        <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Dropdown </a>
+                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
+                        </li>
+                    </ul>
+                    <form class="form-inline mr-auto" target="_self">
+                        <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field" type="search" name="search" id="search-field"></div>
+                    </form><span class="navbar-text"><a href="#" class="login">Log In</a></span><a class="btn btn-light action-button" role="button" href="#">Sign Up</a></div>
+            </div>
+        </nav>
+        
+        <div class="container hero">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <h1 class="text-center">Streaming Video Recorder</h1>
+                    <div id="recorder">
+                      <button class="btn btn-light action-button" role="button" id="record">Record</button>
+                      <button class="btn btn-light action-button" role="button"id="stop">Stop</button>
+                      <button id="download" onclick = "openForm()">download</button>
+                      <script type="text/javascript" src="{{ url_for('static', filename='recorder.js') }}"></script> 
+                      <img id="video" src="{{ url_for('video_viewer') }}">     
+                      <!-- <form  id="form1" method="post" action="" target = "_parent" > -->
+                        <div class="form-popup" id="form1" style="display: none">
+                            <form  class="form-container">
+                              <h1>Login</h1>
+                          
+                              <label for="email"><b>Email</b></label>
+                              <input type="text" placeholder="Enter Email" name="email" required>
+                          
+                              <label for="psw"><b>Password</b></label>
+                              <input type="password" placeholder="Enter Password" name="psw" required>
+                          
+                            </form>
+                          </div>
+                    </div>
+                    <!-- <button id="download" onclick="">Upload</button> -->
+                    <!-- <div class="form-popup" id="myForm">
+                        <form action="/action_page.php" class="form-container">
+                          <h1>Login</h1>
+                      
+                          <label for="email"><b>Email</b></label>
+                          <input type="text" placeholder="Enter Email" name="email" required>
+                      
+                          <label for="psw"><b>Password</b></label>
+                          <input type="password" placeholder="Enter Password" name="psw" required>
+                      
+                          <button type="submit" class="btn">Login</button>
+                          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                        </form>
+                      </div> -->
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+  
+  
 </body>
 </html>

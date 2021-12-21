@@ -10,7 +10,7 @@ class RecordingThread (threading.Thread):
         threading.Thread.__init__(self)
         self.brushThickness = 5
         self.eraserThickness = 50
-        self.drawColor = (255, 0, 255)
+        self.drawColor = (255, 0, 0)
         self.name = name
         self.isRunning = True
 
@@ -67,9 +67,10 @@ class RecordingThread (threading.Thread):
                 imgInv = cv2.cvtColor(imgInv, cv2.COLOR_GRAY2BGR)
                 img = cv2.bitwise_and(img, imgInv)
                 img = cv2.bitwise_or(img, imgCanvas)
+                newimg=cv2.flip(img,1)
 
 
-                self.out.write(img)
+                self.out.write(newimg)
 
         self.out.release()
 
@@ -99,7 +100,9 @@ class VideoCamera(object):
         ret, frame = self.cap.read()
 
         if ret:
+            
             frame=cv2.bitwise_or(frame, imgCanvas)
+            frame=cv2.flip(frame,1)
             ret, jpeg = cv2.imencode('.jpg', frame)
 
             # Record video
