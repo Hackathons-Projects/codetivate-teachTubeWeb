@@ -10,7 +10,11 @@ class RecordingThread (threading.Thread):
         threading.Thread.__init__(self)
         self.brushThickness = 5
         self.eraserThickness = 50
-        self.drawColor = (255, 0, 0)
+        
+        # self.colorList=[(255,0,0),(0,255,0),(0,0,255)]
+        # self.currColor=1
+        self.drawColor = (0,0,255)
+        
         self.name = name
         self.isRunning = True
 
@@ -32,21 +36,39 @@ class RecordingThread (threading.Thread):
                 if len(lmList) != 0:
                     x1, y1 = lmList[8][1:]
                     x2, y2 = lmList[12][1:]
-
+                    # print(x1,y1)
                     # Step3: Check which fingers are up
                     fingers = detector.fingersUp()
                     # cv2.rectangle(img, (frameR, frameR), (wCam - frameR, hCam - frameR),
                     #               (255, 0, 255), 2)
-
-                    if fingers[1] and fingers[2]:
+                    # if fingers[0] and not(fingers[1] or fingers[2] or fingers[3] or fingers[4]):
+                    #     while(fingers[0]):
+                    #         ret, frame = self.cap.read()
+                    #         img = detector.findHands(frame)
+                    #         lmList, bbox = detector.findPosition(img)
+                    #         fingers = detector.fingersUp()
+                            
+                    #         self.out.write(img)
+                    #     print("color change")
+                    #     self.currColor =(self.currColor+1)%3
+                    #     self.drawColor=self.colorList[self.currColor]
+                    if 0<=y1<=25 and 20<=x1<=50:
+                        self.drawColor=(255,0,0)
+                    elif 0<=y1<=25 and 70<=x1<=100:
+                        self.drawColor=(0,255,0)
+                    elif 0<=y1<=25 and 120<=x1<=150:
+                        self.drawColor=(0,0,255)
+                    if fingers[1] and fingers[2] and fingers[3] and fingers[4]:
                         if xp == 0 and yp == 0:
                             xp, yp = x1, y1
-                        cv2.line(img, (xp, yp), (x1, y1), (0,0,0), self.eraserThickness)
+                        print("erasing Mode")
+                        # cv2.line(img, (xp, yp), (x1, y1), (0,0,0), self.eraserThickness)
                         cv2.line(imgCanvas, (xp, yp), (x1, y1), (0,0,0), self.eraserThickness)
 
                     # if drawing mode - index finger is up
-                    if fingers[1] and fingers[2] == False:
+                    elif fingers[1] and not(fingers[0] or fingers[2] or fingers[3] or fingers[4]):
                         # cv2.circle(img, (x1,y1), 15, drawColor, cv2.FILLED)
+                        
                         print("Drawing Mode")
 
                         if xp == 0 and yp == 0:
@@ -67,10 +89,12 @@ class RecordingThread (threading.Thread):
                 imgInv = cv2.cvtColor(imgInv, cv2.COLOR_GRAY2BGR)
                 img = cv2.bitwise_and(img, imgInv)
                 img = cv2.bitwise_or(img, imgCanvas)
-                newimg=cv2.flip(img,1)
+                img=cv2.flip(img,1)
+                img = cv2.rectangle(img, (580,10), (600,25), (255,0,0), 15)
+                img = cv2.rectangle(img, (530,10), (550,25), (0,255,0), 15)
+                img = cv2.rectangle(img, (480,10), (500,25), (0,0,255), 15)
 
-
-                self.out.write(newimg)
+                self.out.write(img)
 
         self.out.release()
 
@@ -103,6 +127,9 @@ class VideoCamera(object):
             
             frame=cv2.bitwise_or(frame, imgCanvas)
             frame=cv2.flip(frame,1)
+            frame = cv2.rectangle(frame, (580,10), (600,25), (255,0,0), 15)
+            frame = cv2.rectangle(frame, (530,10), (550,25), (0,255,0), 15)
+            frame = cv2.rectangle(frame, (480,10), (500,25), (0,0,255), 15)
             ret, jpeg = cv2.imencode('.jpg', frame)
 
             # Record video
