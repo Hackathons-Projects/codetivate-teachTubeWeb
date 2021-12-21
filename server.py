@@ -1,8 +1,16 @@
 from flask import Flask, render_template, Response, jsonify, request
 from camera import VideoCamera
+from werkzeug.utils import secure_filename
+import boto3, os
 
 app = Flask(__name__)
 
+s3 = boto3.client('s3',
+    aws_access_key_id='AKIAS25EY3UPREEMHTW5',
+    aws_secret_access_key= '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'
+)
+BUCKET_NAME='codetivate-teachtube'
+data_file_folder = os.path.join(os.getcwd(), 'static')
 video_camera = None
 global_frame = None
 
@@ -49,6 +57,22 @@ def video_stream():
 def video_viewer():
     return Response(video_stream(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/upload',methods=['post'])
+def upload():
+    if request.method == 'POST':
+        print(data_file_folder)
+        for file in os.listdir(data_file_folder):
+            if file.startswith('v'):
+                Filename = file.filename
+                print(Filename)
+                s3.upload_file(
+                    os.path.join(data_file_folder, file),
+                    BUCKET_NAME,
+                    file
+                )
+                msg = "Upload Done ! "
+    return jsonify(msg="Uploaded Successfully")
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', threaded=True)

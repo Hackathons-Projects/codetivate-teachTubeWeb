@@ -1,5 +1,6 @@
 var buttonRecord = document.getElementById("record");
 var buttonStop = document.getElementById("stop");
+var buttonUpload = document.getElementById("upload");
 
 buttonStop.disabled = true;
 
@@ -9,9 +10,6 @@ buttonRecord.onclick = function() {
     buttonStop.disabled = false;
     
     // disable download link
-    var downloadLink = document.getElementById("download");
-    downloadLink.text = "";
-    downloadLink.href = "";
 
     // XMLHttpRequest
     var xhr = new XMLHttpRequest();
@@ -36,13 +34,24 @@ buttonStop.onclick = function() {
             // alert(xhr.responseText);
 
             // enable download link
-            var downloadLink = document.getElementById("download");
-            downloadLink.text = "Download Video";
-            downloadLink.href = "/static/video.avi";
         }
     }
     xhr.open("POST", "/record_status");
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.send(JSON.stringify({ status: "false" }));
+};
+
+buttonUpload.onclick = function(){
+    console.log("clicked")
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var downloadLink = document.getElementById("show-msg");
+            downloadLink.text = xhr;
+        }
+    }
+    xhr.open("POST", "/upload");
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify({ status: "false", AuthorName: "Tanweer Ali", Class: "10", Category: "Science" }));
 };
 
