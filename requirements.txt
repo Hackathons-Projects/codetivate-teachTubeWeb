@@ -1,0 +1,4 @@
+opencv-python
+mediapipe
+boto3
+flask
